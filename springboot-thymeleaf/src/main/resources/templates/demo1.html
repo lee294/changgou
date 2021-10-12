@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+    引入thymeleaf标签
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>thymeleaf</title>
+</head>
+<body>
+<!--
+    th:表示使用thymeleaf模板引擎操作
+    th:text="${username}":输出文本内容,${username}输出的变量内容,可以从Model中获取
+-->
+我于2019年9月毕业，请于__<span th:text="${username}"></span>__(先生/女士)来参与我的毕业典礼
+<br/>
+
+
+<div>
+    th:action语法：指定表单提交地址
+</div>
+<form id="login-form" th:action="@{/test/hello}">
+    <button>提交</button>
+</form>
+
+<div>
+    th:each  循环输出数据
+</div>
+<div>
+    <table>
+        <tr>
+            <td>编号</td>
+            <td>唯一ID</td>
+            <td>名字</td>
+            <td>住址</td>
+        </tr>
+        <tr th:each="user,userStat:${users}">
+            <td th:text="${userStat.count}"></td>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}">名字</td>
+            <td th:text="${user.address}"></td>
+        </tr>
+    </table>
+</div>
+
+
+<div>
+    Map输出
+</div>
+<div>
+    <div>===============1.知道Map中的key===============</div>
+    <div>
+        <span th:text="${dataMap.No}"></span>
+        <span th:text="${dataMap.address}"></span>
+    </div>
+    <div>------------------------------</div>
+    <div>===============2.不知道Map中的key，用循环输出的方式===============</div>
+    <div th:each="map:${dataMap}">
+        <!--获取key的名字-->
+        获取key的名字：<span th:text="${map.key}"></span>
+        获取key对应的值:<span th:text="${map.value}"></span>
+        <div>|||||||||||||||||||||||||||</div>
+    </div>
+</div>
+
+<div>
+    输出数组
+</div>
+<div>
+    <div th:each="name:${names}">
+        <div th:text="${name}"></div>
+    </div>
+</div>
+
+
+<div>
+    获取Date类型
+</div>
+<div>
+    <span th:text="${#dates.format(now,'yyyy-MM-dd')}"></span>
+</div>
+
+<div>
+    th:if 条件判断
+</div>
+<div th:if="${age}>=18">
+    成年人！
+</div>
+
+
+<div>
+    th:include  包含其他的公共模块
+</div>
+<div id="A" th:include="footer::copy"></div>
+</body>
+</html>
